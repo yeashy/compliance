@@ -13,6 +13,16 @@ abstract class ComplianceRule
 
     protected object $data;
 
+    protected function key(): string
+    {
+        return $this->key;
+    }
+
+    protected function message(): string
+    {
+        return $this->message;
+    }
+
     public function handle(object $data, Closure $next): object
     {
         $this->data = $data;
@@ -38,8 +48,8 @@ abstract class ComplianceRule
             $this->data->__errorMessages = [];
         }
 
-        $key = $key ?? $this->key;
-        $message = $message ?? $this->message;
+        $key = $key ?? $this->key ?? $this->key();
+        $message = $message ?? $this->message ?? $this->message();
 
         if (empty($this->data->__errorMessages[$key])) {
             $this->data->__errorMessages[$key] = [];
