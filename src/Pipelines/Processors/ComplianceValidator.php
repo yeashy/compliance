@@ -7,6 +7,8 @@ use Yeashy\Compliance\Objects\ComplianceObject;
 
 final class ComplianceValidator extends PipelineProcessor
 {
+    private const DEFAULT_STATUS_CODE = 422;
+
     /**
      * @param  array<string>  $pipes
      */
@@ -19,7 +21,7 @@ final class ComplianceValidator extends PipelineProcessor
                 ->invalid()
                 ->message(Arr::first($result->__errorMessages))
                 ->errors($result->__errorMessages)
-                ->code(422);
+                ->code($result->__statusCode ?? self::DEFAULT_STATUS_CODE);
         }
 
         return $this->validatedData();

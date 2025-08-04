@@ -61,7 +61,8 @@ abstract class ComplianceRequest extends FormRequest
         $validated = $this->processCompliances();
 
         if (! $validated->isValid()) {
-            throw ValidationException::withMessages($validated->getErrors());
+            throw ValidationException::withMessages($validated->getErrors())
+                ->status($validated->getCode());
         }
     }
 
@@ -83,7 +84,8 @@ abstract class ComplianceRequest extends FormRequest
             $allMessages[$attribute] = array_merge($messages, $allMessages[$attribute]);
         }
 
-        throw ValidationException::withMessages($allMessages);
+        throw ValidationException::withMessages($validated->getErrors())
+            ->status($validated->getCode());
     }
 
     private function processCompliances(): ComplianceObject

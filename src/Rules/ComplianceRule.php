@@ -11,6 +11,8 @@ abstract class ComplianceRule
 
     protected string $message = 'Some data is invalid';
 
+    public int $statusCode;
+
     protected object $data;
 
     protected function key(): string
@@ -53,6 +55,10 @@ abstract class ComplianceRule
 
         if (empty($this->data->__errorMessages[$key])) {
             $this->data->__errorMessages[$key] = [];
+        }
+
+        if (! empty($this->statusCode)) {
+            $this->data->__statusCode = $this->statusCode;
         }
 
         $this->data->__errorMessages[$key][] = $message;
