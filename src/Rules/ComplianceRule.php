@@ -7,9 +7,9 @@ use Throwable;
 
 abstract class ComplianceRule
 {
-    protected string $key = 'Some attribute';
+    protected string $key;
 
-    protected string $message = 'Some data is invalid';
+    protected string $message;
 
     public int $statusCode;
 
@@ -50,8 +50,8 @@ abstract class ComplianceRule
             $this->data->__errorMessages = [];
         }
 
-        $key = $key ?? $this->key ?? $this->key();
-        $message = $message ?? $this->message ?? $this->message();
+        $key = $key ?? $this->key ?? $this->key() ?? 'key';
+        $message = $message ?? $this->message ?? $this->message() ?? 'data is invalid';
 
         if (empty($this->data->__errorMessages[$key])) {
             $this->data->__errorMessages[$key] = [];
