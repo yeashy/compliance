@@ -84,8 +84,13 @@ abstract class ComplianceRequest extends FormRequest
             $allMessages[$attribute] = array_merge($messages, $allMessages[$attribute]);
         }
 
-        throw ValidationException::withMessages($validated->getErrors())
-            ->status($validated->getCode());
+        $exception = ValidationException::withMessages($allMessages);
+
+        if ($complianceValidated->getCode()) {
+            $exception->status($complianceValidated->getCode());
+        }
+
+        throw $exception;
     }
 
     private function processCompliances(): ComplianceObject
