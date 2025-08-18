@@ -168,7 +168,6 @@ In this example:
 - `$getCompliances` defines additional rules applied only for `GET` requests.
 - All rules are processed in order, and execution stops if a rule uses `invalidateAndExit()`.
 
-```
 ## 🧪 Testing
 
 You can test compliance rules in isolation:
